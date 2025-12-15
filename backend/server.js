@@ -2,12 +2,12 @@
 require('dotenv').config();
 
 const express = require('express');
-const pool = require('pg');
+const { Pool } = require('pg');
 
 const app = express();
 const PORT = process.env.PORT || 3000; //3000 for local development
 
-const pool = new pool({
+const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
