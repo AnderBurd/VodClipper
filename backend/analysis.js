@@ -2,6 +2,8 @@ const { exec } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
+
+//Use the TwitchDownloaderCLI to make the .txt with the chat messages
 //Our executable, example usage: ./TwitchDownloaderCLI chatdownload --id 2621173021 --timestamp-format Relative -o chatTest.txt
 const EXECUTABLE_NAME = path.join(__dirname, 'TwitchDownloaderCLI');
 function getChat(vodID, tempChatFilePath){

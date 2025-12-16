@@ -5,6 +5,7 @@ const path = require('path');
 const express = require('express');
 const { Pool } = require('pg');
 const fs = require('fs');
+const {processVod} = require('./processVod');
 
 const app = express();
 const PORT = process.env.PORT || 3000; //3000 for local development
@@ -38,40 +39,4 @@ app.listen(PORT, ()=>{
 
 });
 
-app.get('/getChat', async (req, res) => {
-    const TEST_VOD_ID = '2621173021';
-    const TEMP_FILE_NAME = `chat_${TEST_VOD_ID}.txt`;
-    
-    const TEMP_FILE_PATH = path.join(__dirname, 'temp_chats', TEMP_FILE_NAME);
 
-    console.log(`\n--- Starting VOD Extraction Test for ${TEST_VOD_ID} ---`);
-
-    try {
-        //Execute the extraction function
-        const filePath = await getChat(TEST_VOD_ID, TEMP_FILE_PATH);
-        
-        //Verify the file exists (redundant, but good practice)
-        if (fs.existsSync(filePath)) {
-            const stats = fs.statSync(filePath);
-            res.status(200).send({
-                status: 'SUCCESS',
-                message: `Chat file created successfully for VOD ${TEST_VOD_ID}.`,
-                filePath: filePath,
-                fileSize: `${(stats.size / (1024 * 1024)).toFixed(2)} MB` // Display size in MB
-            });
-            console.log(`Test SUCCESS. File saved to: ${filePath}`);
-            
-        } else {
-            res.status(500).send({ status: 'ERROR', message: 'Extraction finished, but file was not found.' });
-        }
-
-    } catch (error) {
-        //Handle errors
-        console.error('Extraction Test FAILED:', error.message);
-        res.status(500).send({
-            status: 'FAILURE',
-            message: `Extraction failed: ${error.message}`,
-            details: error.toString()
-        });
-    }
-});
