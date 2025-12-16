@@ -13,14 +13,14 @@ async function processVod(vodId){
     try{
         console.log(`[Orchestrator] Starting processing for VOD: ${vodId}`);
         //insert new row in vod_analysys table
-        const analysis = await knex('vod_analysis')
+        const [analysis] = await knex('vod_analysis')
             .insert({
                 vod_id: vodId, 
                 total_duration_s: 0,
                 status: 'temporary' //For our garbage collector
             })
             .returning('id');
-
+        //Get the id
         const analysisId = typeof analysis === 'object' ? analysis.id : analysis;
 
         //Download the chat

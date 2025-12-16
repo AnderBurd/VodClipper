@@ -20,7 +20,7 @@ async function parseChatFile(filePath, vodID){
         const match = line.match(/^\[(\d+):(\d+):(\d+)\]\s+([^:]+):\s+(.*)$/);
 
         if(match){
-            const hours = parseInt(match[i], 10); //parseInt is js way of changing from string to int
+            const hours = parseInt(match[1], 10); //parseInt is js way of changing from string to int
             const minutes = parseInt(match[2], 10);
             const seconds = parseInt(match[3], 10);
 
@@ -28,7 +28,7 @@ async function parseChatFile(filePath, vodID){
             const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
 
             messages.push({
-                vod_analysis_id: vodAnalysisId,
+                vod_analysis_id: vodID,
                 time_s: totalSeconds,
                 username: match[4],
                 message: match[5]
