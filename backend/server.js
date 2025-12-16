@@ -6,6 +6,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const fs = require('fs');
 const {processVod} = require('./processVod');
+const { getStandardDeviationSpikes } = require('./detectSpikes');
 
 const app = express();
 const PORT = process.env.PORT || 3000; //3000 for local development
@@ -55,5 +56,24 @@ app.get('/processVod/:vodId', async (req, res) => {
             error: "Failed to process VOD",
             details: error.message
         });
+    }
+});
+
+
+app.get('/api/analytics/:analysisId', async (req, res) => {
+    const { analysisId } = req.params;
+    const zThreshold = req.query.z || 5; //Allow user to adjust sensitivity of z test
+
+    try {
+        const results = await getStandardDeviationSpikes(analysisId, parseFloat(zThreshold));
+        
+        if (!results.stats) {
+            return res.status(404).json({ message: "No data found." });
+        }
+
+        res.json(results);
+    } catch (error) {
+        console.error("Analytics Error:", error);
+        res.status(500).json({ error: "Failed to fetch analytics." });
     }
 });
