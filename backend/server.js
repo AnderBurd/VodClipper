@@ -40,3 +40,20 @@ app.listen(PORT, ()=>{
 });
 
 
+//Takes vod and processes and inserts into db
+app.get('/processVod/:vodId', async (req, res) => {
+    const {vodId} = req.params;
+    try{
+        const result = await processVod(vodId);
+        res.status(200).json({
+            message: "Analysis complete",
+            data: result
+        });
+    }
+    catch(error){
+        res.status(500).json({
+            error: "Failed to process VOD",
+            details: error.message
+        });
+    }
+});
