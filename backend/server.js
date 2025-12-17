@@ -62,7 +62,7 @@ app.get('/processVod/:vodId', async (req, res) => {
 
 app.get('/api/analytics/:analysisId', async (req, res) => {
     const { analysisId } = req.params;
-    const zThreshold = req.query.z || 5; //Allow user to adjust sensitivity of z test
+    const zThreshold = req.query.z || 3; //Allow user to adjust sensitivity of z test
 
     try {
         const results = await getStandardDeviationSpikes(analysisId, parseFloat(zThreshold));

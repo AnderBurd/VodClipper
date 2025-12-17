@@ -17,30 +17,38 @@ async function getStandardDeviationSpikes(analysisId, thresholdZ = 2) {
 
     if (counts.length === 0) return { stats: null, spikes: [], allData: [] };
 
-    // Calculate Mean, x bar
-    const mean = counts.reduce((a, b) => a + b) / counts.length;
+    const spikes = [];
+    //We'll compare against 30 buckets before and after, each bucket is 10s so 60*10 = (10 mins)
+    const windowRadius = 30;
 
-    //Calculate Variance
-    const variance = counts.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / counts.length;
+    //Check each 10s bucket
+    for (let i = 0; i < rawData.length; i++) {
+        // Grab this part of the time range
+        const start = Math.max(0, i - windowRadius);
+        const end = Math.min(rawData.length, i + windowRadius);
+        const thisChunk = counts.slice(start, end);
 
-    //Calculate Standard Deviation
-    const stdDev = Math.sqrt(variance);
+        //Calculate Mean and StdDev
+        const mean = thisChunk.reduce((a, b) => a + b, 0) / thisChunk.length;
+        const variance = thisChunk.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / thisChunk.length;
+        const std = Math.sqrt(variance) || 1;
 
-    //Filter for Spikes (z-score > threshold)
-    const spikes = rawData.filter(d => {
-        const zScore = (parseInt(d.message_count) - mean) / (stdDev || 1); 
-        return zScore > thresholdZ;
-    });
+        const currentCount = counts[i];
+        //This is the z test (the x - mew over std formula)
+        const zScore = (currentCount - mean) / std;
 
+        if (zScore > thresholdZ && currentCount > mean) {
+            spikes.push({
+                ...rawData[i],
+                zScore: zScore.toFixed(2),
+                localMean: mean.toFixed(2)
+            });
+        }
+    }
     return {
-        stats: {
-            mean: mean.toFixed(2),
-            stdDev: stdDev.toFixed(2),
-            totalWindows: rawData.length,
-            spikeCount: spikes.length
-        },
-        spikes: spikes,     // Spikes moments
-        allData: rawData   //Everything
+        stats: { method: "Sliding Window Z-Score", windowSize: "10m" },
+        spikes: spikes,
+        allData: rawData
     };
 }
 
