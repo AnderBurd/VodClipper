@@ -8,7 +8,9 @@ const fs = require('fs');
 const {processVod} = require('./processVod');
 const { getStandardDeviationSpikes } = require('./detectSpikes');
 
+const cors = require('cors');
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 3000; //3000 for local development
 
 const pool = new Pool({
