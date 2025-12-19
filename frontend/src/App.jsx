@@ -2,9 +2,14 @@ import { useState } from 'react'
 import './styles/App.css'
 
 function App() {
-  const [vodId,setVodID] = useState('');
+  const [vodInput,setVodID] = useState('');
 
   const handleSend = async () => {
+
+    const vodId = vodInput.includes('videos/') 
+      ? vodInput.split('videos/')[1].split('?')[0] 
+      : vodInput;
+
     if(!vodId){
       return alert("Please enter a Vod ID")
     }
