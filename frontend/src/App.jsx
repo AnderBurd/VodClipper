@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/analyze" replace />} /> 
         <Route path="/analyze" element={<AnalyzeVod />} />
-        <Route path="/v/:vodId" element= {ViewHighlights}></Route>   
+        <Route path="/v/:vodId" element= {<ViewHighlights />} />
       </Routes>
     </BrowserRouter>
   )
