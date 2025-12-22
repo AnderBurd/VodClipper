@@ -9,6 +9,7 @@ const {processVod} = require('./processVod');
 const { getStandardDeviationSpikes } = require('./detectSpikes');
 
 const cors = require('cors');
+const { default: knex } = require('knex');
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 3000; //3000 for local development
@@ -47,6 +48,15 @@ app.listen(PORT, ()=>{
 app.get('/processVod/:vodId', async (req, res) => {
     const {vodId} = req.params;
     try{
+        
+        //Check if the vod already exists in our database, if yes we dont gotta insert again (error since unique constraint) 
+        const exists = await pool.query('SELECT * FROM vod_analysis WHERE vod_id = $1 LIMIT 1', [vodId]);
+        if(exists){
+            res.status(200).json({
+                message: "Vod already exists in db"
+            })
+        }
+
         const result = await processVod(vodId);
         res.status(200).json({
             message: "Analysis complete",
@@ -61,7 +71,7 @@ app.get('/processVod/:vodId', async (req, res) => {
     }
 });
 
-
+//Does a z-test and returns spikes, and raw data
 app.get('/api/analytics/:analysisId', async (req, res) => {
     const { analysisId } = req.params;
     const zThreshold = req.query.z || 3; //Allow user to adjust sensitivity of z test
