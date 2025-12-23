@@ -1,6 +1,6 @@
 import React from "react";
 import {AreaChart, Area, XAxis, Tooltip, ResponsiveContainer, ReferenceDot} from 'recharts';
-
+import '../styles/HypeChart.css'
 
 
 //The twitch embed expects time in something like 0h3m13s, rn we have total second so format it
@@ -21,34 +21,62 @@ const HypeChart = ({allData, spikes, onTimeSelect}) => {
             onTimeSelect(state.activeLabel);
         }
     }
+    if (!allData.length) return <div>No chart data</div>;
 
-    <div>
-        <ResponsiveContainer>
-            <AreaChart 
-            data={allData} 
-            onClick={handleChartClick}
-            margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-            }}>
+  return (
+    <div className="chart-wrapper">
+      <ResponsiveContainer width="100%" height={200}>
+        <AreaChart
+          data={allData}
+          onClick={handleChartClick}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
+          {/*Shiny effect*/}
+          <defs>
+            <linearGradient id="colorHype" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#9147ff" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#9147ff" stopOpacity={0} />
+            </linearGradient>
+          </defs>
 
-            <XAxis 
-                dataKey="window_start" 
-            />         
+          {/*x axis labels*/}
+          <XAxis dataKey="window_start" />
+          <Tooltip
+            labelFormatter={(label) => `Time: ${formatTime(label)}`}
+            contentStyle={{
+              backgroundColor: "#18181b",
+              border: "none",
+              borderRadius: "8px",
+              color: "#fff",
+            }}
+          />
 
-            <Area 
-                type="monotone"
-                dataKey="message_count" // alldata looks like { window_start: 0, message_count: 5 }, area is message_count
-                stroke="#9147ff" 
-                fillOpacity={1} 
-                fill="url(#colorHype)" 
-                isAnimationActive={false}
+          {/*Draw the graph with the message counts*/}
+          <Area
+            type="monotone"
+            dataKey="message_count"
+            stroke="#9147ff"
+            fillOpacity={1}
+            fill="url(#colorHype)"
+            isAnimationActive={false}
+          />
+          
+          {/*Draw dots to show the spikes*/}
+          {spikes.map((spike, idx) => (
+            <ReferenceDot
+              key={idx}
+              x={spike.window_start}
+              y={spike.message_count}
+              r={4}
+              fill="#fff"
+              stroke="#9147ff"
+              strokeWidth={2}
             />
-            </AreaChart>
-        </ResponsiveContainer>
+          ))}
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
+  );
 }
 
 export default HypeChart;
