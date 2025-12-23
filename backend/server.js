@@ -72,11 +72,21 @@ app.get('/processVod/:vodId', async (req, res) => {
 });
 
 //Does a z-test and returns spikes, and raw data
-app.get('/api/analytics/:analysisId', async (req, res) => {
-    const { analysisId } = req.params;
+app.get('/api/analytics/:vodId', async (req, res) => {
+    const { vodId } = req.params;
     const zThreshold = req.query.z || 3; //Allow user to adjust sensitivity of z test
 
     try {
+
+        //Get analysisId, its kinda scuffed because i built the spike detector to need that
+        const { rows } = await pool.query(
+            'SELECT id FROM vod_analysis WHERE vod_id = $1 LIMIT 1',
+            [vodId]
+        );
+        if (!rows.length) return res.status(404).json({ message: "Vod not found." });
+
+        const analysisId = rows[0].id;
+
         const results = await getStandardDeviationSpikes(analysisId, parseFloat(zThreshold));
         
         if (!results.stats) {
