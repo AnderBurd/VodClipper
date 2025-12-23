@@ -1,6 +1,6 @@
 const knex = require('knex')(require('./knexfile').development);
 
-//Returns list of objects with the timestamp and message count within that window
+//Returns list of objects with the timestamp and message count within that window returns array of objects { window_start: 0, message_count: 5 }
 async function getSpikes(analysisId, windowSize = 10) {
     return knex('chat_message')
         .select(knex.raw(`(time_s / ?) * ? AS window_start`, [windowSize, windowSize]))
