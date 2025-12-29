@@ -38,7 +38,9 @@ export default function ViewHighlights(){
     return(
         <div className="Hype-wrapper">
         {/*Twitch embed*/}
-        <iframe src={`https://player.twitch.tv/?video=${vodId}&time=${timeStamp}&parent=localhost`} frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620" preload="auto"></iframe> 
+        <div className='Vid-container'>
+            <iframe src={`https://player.twitch.tv/?video=${vodId}&time=${timeStamp}&parent=localhost`} frameborder="0" allowfullscreen="true" scrolling="no"  preload="auto"></iframe> 
+        </div>
 
         <HypeChart
             allData={chartData.allData}
