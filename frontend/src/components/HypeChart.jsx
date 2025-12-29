@@ -41,13 +41,23 @@ const HypeChart = ({allData, spikes, onTimeSelect}) => {
 
           {/*x axis labels*/}
           <XAxis dataKey="window_start" />
+          {/*The tool tip that appears when you hover over the graph*/}
           <Tooltip
-            labelFormatter={(label) => `Time: ${formatTime(label)}`}
-            contentStyle={{
-              backgroundColor: "#18181b",
-              border: "none",
-              borderRadius: "8px",
-              color: "#fff",
+            content={({ active, payload }) => {
+              if (active && payload && payload.length) {
+                return (
+                  <div style={{
+                    backgroundColor: "#18181b",
+                    border: "none",
+                    borderRadius: "8px",
+                    color: "#fff",
+                    padding: "8px 12px"
+                  }}>
+                    Time: {formatTime(payload[0].payload.window_start)}
+                  </div>
+                );
+              }
+              return null;
             }}
           />
 

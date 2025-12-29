@@ -27,7 +27,7 @@ export default function ViewHighlights(){
        fetchData();
     }, [vodId])
 
-    {/*Just sets the timestamp of the video player when clicking on a point on the graph*/}
+    /*Just sets the timestamp of the video player when clicking on a point on the graph*/
     const onTimeSelect = (time) => {
         setTimeStamp(time);
     }
@@ -38,7 +38,8 @@ export default function ViewHighlights(){
     return(
         <div className="Hype-wrapper">
         {/*Twitch embed*/}
-        <iframe src={`https://player.twitch.tv/?video=${vodId}&time=${timeStamp}&parent=localhost`} frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe> 
+        <iframe src={`https://player.twitch.tv/?video=${vodId}&time=${timeStamp}&parent=localhost`} frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620" preload="auto"></iframe> 
+
         <HypeChart
             allData={chartData.allData}
             spikes={chartData.spikes}
