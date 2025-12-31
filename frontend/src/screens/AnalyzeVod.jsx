@@ -1,5 +1,6 @@
 import react, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/AnalyzeVod.css'
 
 export default function AnalyzeVod(){
     const [vodInput,setVodID] = useState('');
@@ -23,7 +24,7 @@ export default function AnalyzeVod(){
         method: 'GET',
       });
       const result = await res.json();
-      if(result.message){
+      if(result){
         console.log("Success");
         navigate(`/v/${vodId}`);
       }
@@ -39,10 +40,27 @@ export default function AnalyzeVod(){
   };
 
   return(
-    <div>
-      <input type="text" placeholder='Twitch Vod URL' onChange={(e)=> setVodID(e.target.value)} disabled={loading}>
-      </input>
-      <button onClick={handleSend} disabled={loading}>{loading ? "Analyzing..." : "Find Highlights"}</button>
-      </div> 
+    <div className="analyze-container">
+      <div className="analyze-header">
+        <h1>VodClipper</h1>
+        <p>Paste a Twitch VOD URL to find the best moments</p>
+      </div>
+      <div className="input-group">
+        <input 
+          className="analyze-input"
+          type="text" 
+          placeholder='https://twitch.tv/videos/...' 
+          onChange={(e)=> setVodID(e.target.value)} 
+          disabled={loading}
+        />
+        <button 
+          className="analyze-button"
+          onClick={handleSend} 
+          disabled={loading}
+        >
+          {loading ? "Analyzing..." : "Find Highlights"}
+        </button>
+      </div>
+    </div> 
   )
 }

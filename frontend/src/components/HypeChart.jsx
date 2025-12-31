@@ -39,7 +39,7 @@ const HypeChart = ({allData, spikes, onTimeSelect}) => {
             </linearGradient>
           </defs>
 
-          {/*x axis labels*/}
+          {/*x axis label, show formatted time*/}
           <XAxis dataKey="window_start" tickFormatter={formatTime} />
           {/*The tool tip that appears when you hover over the graph*/}
           <Tooltip
