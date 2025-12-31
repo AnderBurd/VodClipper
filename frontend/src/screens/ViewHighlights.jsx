@@ -29,7 +29,9 @@ export default function ViewHighlights(){
 
     /*Just sets the timestamp of the video player when clicking on a point on the graph*/
     const onTimeSelect = (time) => {
-        setTimeStamp(time);
+        //Move 10 seconds before so theres context to the moment
+        const addBuildUpToTime = Math.max(0, time - 10);
+        setTimeStamp(addBuildUpToTime);
     }
 
     if (loading) return <div>Loading...</div>;
