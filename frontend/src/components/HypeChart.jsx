@@ -40,7 +40,7 @@ const HypeChart = ({allData, spikes, onTimeSelect}) => {
           </defs>
 
           {/*x axis labels*/}
-          <XAxis dataKey="window_start" />
+          <XAxis dataKey="window_start" tickFormatter={formatTime} />
           {/*The tool tip that appears when you hover over the graph*/}
           <Tooltip
             content={({ active, payload }) => {
@@ -77,7 +77,7 @@ const HypeChart = ({allData, spikes, onTimeSelect}) => {
               key={idx}
               x={spike.window_start}
               y={spike.message_count}
-              r={4}
+              r={6}
               fill="#fff"
               stroke="#9147ff"
               strokeWidth={2}
