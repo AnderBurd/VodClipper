@@ -24,7 +24,7 @@ export default function AnalyzeVod(){
         method: 'GET',
       });
       const result = await res.json();
-      if(result){
+      if(result && res.ok){
         console.log("Success");
         navigate(`/v/${vodId}`);
       }
