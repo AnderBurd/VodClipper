@@ -11,6 +11,7 @@
 }
 
 .analyze-header {
+  margin-top: 20rem;
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -73,3 +74,63 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+
+/*History section*/
+
+.recent-section {
+  width: 100%;
+  max-width: 100%;
+  margin-top: auto;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.recent-section h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  font-weight: 600;
+}
+
+.recents {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+.vod-card {
+  background: #27272a;
+  border: 2px solid #3f3f46;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  width: 400px;
+  height: 225px;
+  flex-shrink: 0;
+}
+
+.vod-card:hover {
+  transform: translateY(-8px);
+  border-color: #9147ff;
+  box-shadow: 0 8px 24px rgba(145, 71, 255, 0.2);
+}
+
+
+.vod-card iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  pointer-events: none;
+}
+

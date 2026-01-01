@@ -99,3 +99,24 @@ app.get('/api/analytics/by-vod/:vodId', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch analytics." });
     }
 });
+
+
+app.get('/api/recent-vods', async (req, res) => {
+    //Number of vods shown in homescreen
+    const limit = 5
+    try{
+        const recent = await pool.query(
+            'SELECT vod_id FROM vod_analysis ORDER BY id LIMIT $1', [limit]
+        );
+        res.json({
+            vods:recent.rows,
+            count: recent.rows.length
+        });
+    }
+    catch(error){
+        console.error("Error getting recent-vods", error);
+        res.status(500).json({
+            error: "Failed to fetch recent-vods"
+        });
+    }
+});

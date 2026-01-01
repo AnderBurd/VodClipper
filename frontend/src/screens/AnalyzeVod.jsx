@@ -7,6 +7,8 @@ export default function AnalyzeVod(){
     //Use this to keep track of when the analyzer is loading
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    //recent vods
+    const [recentVods, setRecentVods] = useState([]);
 
     const handleSend = async () => {
     //allow users to paste the whole vod link
@@ -39,6 +41,22 @@ export default function AnalyzeVod(){
     }
   };
 
+  //Fetches the history using out endpoint
+  useEffect(() =>{
+    const fetchHistory = async () =>{
+      try{
+        const res = await fetch(`http://localhost:3001/api/recent-vods`);
+        const result = await res.json();
+        setRecentVods(result.vods);
+      }
+      catch(error){
+        console.error("Error fetching history: ", error)
+      }
+    }
+    fetchHistory();
+
+  }, []);
+
   return(
     <div className="analyze-container">
       <div className="analyze-header">
@@ -61,6 +79,27 @@ export default function AnalyzeVod(){
           {loading ? "Analyzing..." : "Find Highlights"}
         </button>
       </div>
+      
+      <div className="input-note">
+        <p>Go to a VOD on Twitch and copy and paste the link. Note that long VODs may take a little while to process.</p>
+      </div>
+
+      <div className="recent-section">
+          <h3>Check out what others are watching!</h3>
+          <div className="recents">
+            {recentVods.map((vod) =>(
+              <div 
+                  key={vod.vod_id} 
+                  className="vod-card" 
+                  onClick={() => navigate(`/v/${vod.vod_id}`)}
+              >
+                  <iframe src={`https://player.twitch.tv/?video=${vod.vod_id}&time=01h20m05s&parent=localhost`} muted="true" autoplay="true" frameborder="0" allowfullscreen="false" scrolling="no"  preload="auto"></iframe> 
+
+              </div>
+            ))}
+          </div>
+      </div>
+
     </div> 
   )
 }
