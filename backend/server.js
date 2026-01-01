@@ -106,7 +106,7 @@ app.get('/api/recent-vods', async (req, res) => {
     const limit = 5
     try{
         const recent = await pool.query(
-            'SELECT vod_id FROM vod_analysis ORDER BY id LIMIT $1', [limit]
+            'SELECT vod_id FROM vod_analysis ORDER BY id DESC LIMIT $1', [limit]
         );
         res.json({
             vods:recent.rows,

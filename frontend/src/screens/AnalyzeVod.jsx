@@ -54,9 +54,13 @@ export default function AnalyzeVod(){
       }
     }
     fetchHistory();
-
+    
+    // Refetch every time component is focused
+    window.addEventListener('focus', fetchHistory);
+    return () => window.removeEventListener('focus', fetchHistory);
   }, []);
 
+  
   return(
     <div className="analyze-container">
       <div className="analyze-header">
@@ -93,7 +97,7 @@ export default function AnalyzeVod(){
                   className="vod-card" 
                   onClick={() => navigate(`/v/${vod.vod_id}`)}
               >
-                  <iframe src={`https://player.twitch.tv/?video=${vod.vod_id}&time=00h20m05s&parent=localhost&muted=true`}  muted="true" autoplay="true" frameborder="0" allowfullscreen="false" scrolling="no"></iframe> 
+                  <iframe src={`https://player.twitch.tv/?video=${vod.vod_id}&time=00h20m05s&parent=localhost&muted=true`} autoplay="true" frameborder="0" allowfullscreen="false" scrolling="no"></iframe> 
 
               </div>
             ))}
