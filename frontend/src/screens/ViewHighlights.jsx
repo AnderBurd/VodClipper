@@ -52,7 +52,7 @@ export default function ViewHighlights(){
             </div>
         {/*Twitch embed*/}
         <div className='Vid-container'>
-            <iframe src={`https://player.twitch.tv/?video=${vodId}&time=${timeStamp}&parent=localhost`} frameborder="0" allowfullscreen="true" scrolling="no"  preload="auto"></iframe> 
+            <iframe src={`https://player.twitch.tv/?video=${vodId}&time=${timeStamp}&parent=localhost`} muted ="false" frameborder="0" allowfullscreen="true" scrolling="no"  preload="auto"></iframe> 
         </div>
 
         <HypeChart
