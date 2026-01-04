@@ -148,3 +148,19 @@
   pointer-events: none;
 }
 
+.email-contact {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  
+}
+
+.email-contact a {
+  color: #9147ff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.email-contact a:hover {
+  text-decoration: underline;
+}

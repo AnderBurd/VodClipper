@@ -45,6 +45,11 @@ export default function ViewHighlights(){
 
     return(
         <div className="Hype-wrapper">
+            
+            <div className="email-contact">
+                <a href="mailto:contactvodclipper@gmail.com">contactvodclipper@gmail.com</a>
+            </div>
+
             <button className="back-button" onClick={handleBack}>← Back</button>
             <div className="highlights-header">
                 <h1>VOD Highlights</h1>

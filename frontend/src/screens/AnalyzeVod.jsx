@@ -63,6 +63,9 @@ export default function AnalyzeVod(){
   
   return(
     <div className="analyze-container">
+      <div className="email-contact">
+        <a href="mailto:contactvodclipper@gmail.com">contactvodclipper@gmail.com</a>
+      </div>
       <div className="analyze-header">
         <h1>VodClipper</h1>
         <p>Paste a Twitch VOD URL to find the best moments</p>
