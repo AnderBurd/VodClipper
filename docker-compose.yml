@@ -9,27 +9,23 @@ services:
       - ./backend:/usr/src/app/backend
       - /usr/src/app/backend/node_modules
     environment:
-          DB_HOST: postgres 
-          DB_PORT: ${DB_PORT:-5432}
-          DB_USER: ${DB_USER}
-          DB_PASSWORD: ${DB_PASSWORD}
-          DB_NAME: ${DB_NAME}
+          DATABASE_URL: ${DATABASE_URL}
           PORT: ${PORT:-3001}
 
 
-  #PostgreSQL Database
-  postgres:
-    image: postgres:16-alpine
-    container_name: postgres_container
-    restart: always
-    ports:
-      - "${DB_PORT:-5432}:5432"
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+  #PostgreSQL Database (local development only)
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: postgres_container
+  #   restart: always
+  #   ports:
+  #     - "${DB_PORT:-5432}:5432"
+  #   environment:
+  #     POSTGRES_USER: ${DB_USER}
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #     POSTGRES_DB: ${DB_NAME}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
 
   #Frontend
   frontend:
@@ -44,5 +40,7 @@ services:
     depends_on:
       - backend
 
-volumes:
-  postgres_data:
+
+#(local development only)
+# volumes:
+#   postgres_data:

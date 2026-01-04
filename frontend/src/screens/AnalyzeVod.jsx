@@ -94,16 +94,20 @@ export default function AnalyzeVod(){
       <div className="recent-section">
           <h3>Check out what others are watching!</h3>
           <div className="recents">
-            {recentVods.map((vod) =>(
-              <div 
-                  key={vod.vod_id} 
-                  className="vod-card" 
-                  onClick={() => navigate(`/v/${vod.vod_id}`)}
-              >
-                  <iframe src={`https://player.twitch.tv/?video=${vod.vod_id}&time=00h20m05s&parent=localhost&muted=true`} autoplay="true" frameborder="0" allowfullscreen="false" scrolling="no"></iframe> 
+            {recentVods && recentVods.length > 0 ? (
+              recentVods.map((vod) =>(
+                <div 
+                    key={vod.vod_id} 
+                    className="vod-card" 
+                    onClick={() => navigate(`/v/${vod.vod_id}`)}
+                >
+                    <iframe src={`https://player.twitch.tv/?video=${vod.vod_id}&time=00h20m05s&parent=localhost&muted=true`} autoplay="true" frameborder="0" allowfullscreen="false" scrolling="no"></iframe> 
 
-              </div>
-            ))}
+                </div>
+              ))
+            ) : (
+              <p>No recent VODs available</p>
+            )}
           </div>
       </div>
 
