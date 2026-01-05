@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 })
 
 //test database
-app.get('/db-test', async (req, res) => {
+app.get('/api/db-test', async (req, res) => {
     try {
         await pool.query('SELECT NOW()');
         res.send('Database connection successful!');
@@ -42,7 +42,7 @@ app.listen(PORT, ()=>{
 
 
 //Takes vod and processes and inserts into db
-app.get('/processVod/:vodId', async (req, res) => {
+app.get('/api/processVod/:vodId', async (req, res) => {
     const {vodId} = req.params;
     try{
         

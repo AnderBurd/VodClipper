@@ -25,7 +25,7 @@ export default function AnalyzeVod(){
     //Start loading
     setLoading(true);
     try{
-      const res = await fetch(`${API_URL}/processVod/${vodId}`, {
+      const res = await fetch(`${API_URL}/api/processVod/${vodId}`, {
         method: 'GET',
       });
       const result = await res.json();
