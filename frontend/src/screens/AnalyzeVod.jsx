@@ -2,6 +2,9 @@ import react, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AnalyzeVod.css'
 
+//Use droplet ip
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 export default function AnalyzeVod(){
     const [vodInput,setVodID] = useState('');
     //Use this to keep track of when the analyzer is loading
@@ -22,7 +25,7 @@ export default function AnalyzeVod(){
     //Start loading
     setLoading(true);
     try{
-      const res = await fetch(`http://localhost:3001/processVod/${vodId}`, {
+      const res = await fetch(`${API_URL}/processVod/${vodId}`, {
         method: 'GET',
       });
       const result = await res.json();

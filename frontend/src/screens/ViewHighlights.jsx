@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import HypeChart from '../components/HypeChart';
 import '../styles/ViewHighlights.css'
 
+//Use droplet ip
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 
 export default function ViewHighlights(){
@@ -16,7 +18,7 @@ export default function ViewHighlights(){
     useEffect( () =>{
        const fetchData = async () => {
         try{
-            const res = await fetch(`http://localhost:3001/api/analytics/by-vod/${vodId}`);
+            const res = await fetch(`${API_URL}/api/analytics/by-vod/${vodId}`);
             const result = await res.json();
             setChartData(result);
         }catch(error){
