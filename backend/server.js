@@ -12,7 +12,7 @@ const cors = require('cors');
 const { default: knex } = require('knex');
 const app = express();
 app.use(cors());
-const PORT = process.env.PORT || 3000; //3000 for local development
+const PORT = process.env.PORT || 3001;
 
 const pool = new Pool({
 connectionString: process.env.DATABASE_URL,
