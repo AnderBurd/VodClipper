@@ -4,7 +4,7 @@ import HypeChart from '../components/HypeChart';
 import '../styles/ViewHighlights.css'
 
 //Use droplet ip
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || 'http://159.89.130.159';
 
 
 export default function ViewHighlights(){
