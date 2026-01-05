@@ -36,7 +36,7 @@ services:
     #   - ./frontend:/usr/src/app
     #   - /usr/src/app/node_modules
     environment:
-      - VITE_API_URL=http://159.89.130.159:3001
+      - VITE_API_URL=http://159.89.130.159
     depends_on:
       - backend
 
