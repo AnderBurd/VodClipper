@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/AnalyzeVod.css'
 
 //Use droplet ip
-const API_URL = import.meta.env.VITE_API_URL || 'http://159.89.130.159';
+const API_URL = import.meta.env.VITE_API_URL || 'https://vodclipper.me';
 
 export default function AnalyzeVod(){
     const [vodInput,setVodID] = useState('');
