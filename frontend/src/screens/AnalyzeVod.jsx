@@ -104,7 +104,7 @@ export default function AnalyzeVod(){
                     className="vod-card" 
                     onClick={() => navigate(`/v/${vod.vod_id}`)}
                 >
-                    <iframe src={`https://player.twitch.tv/?video=${vod.vod_id}&time=00h20m05s&parent=159.89.130.159&muted=true`} autoplay="true" frameborder="0" allowfullscreen="false" scrolling="no"></iframe> 
+                    <iframe src={`https://player.twitch.tv/?video=${vod.vod_id}&time=00h20m05s&parent=vodclipper.me&muted=true`} autoplay="true" frameborder="0" allowfullscreen="false" scrolling="no"></iframe> 
 
                 </div>
               ))
