@@ -1,5 +1,5 @@
 .Hype-wrapper{
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -7,23 +7,38 @@
   align-items: center;
   gap: 2rem;
   background: #18181b;
-
+  padding: 1rem;
 }
-
 
 .Vid-container{
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 100%;
 }
 
 .Vid-container iframe {
-  width: 105vh;
-  height: 61vh;
-  padding: 2vh;
-
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  max-width: 1000px;
 }
 
+
+@media (min-width: 768px) {
+  .Vid-container iframe {
+    width: 105vh;
+    height: 61vh;
+    padding: 2vh;
+    aspect-ratio: auto;
+  }
+  
+  .Hype-wrapper {
+    padding: 0;
+  }
+}
 
 .highlights-header {
   text-align: center;
