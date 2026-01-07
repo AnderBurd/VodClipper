@@ -4,6 +4,14 @@ import './styles/App.css'
 import AnalyzeVod from './screens/AnalyzeVod';
 import ViewHighlights from './screens/ViewHighlights'
 
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-TPZ1390SH1");
+
+ReactGA.send("pageview");
+
+
+
 function App() {
 
   return(
