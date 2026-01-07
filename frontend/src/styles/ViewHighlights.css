@@ -19,11 +19,10 @@
 }
 
 .Vid-container iframe {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  padding: 0;
-  max-width: 1000px;
+  width: 105vh;
+  height: 61vh;
+  padding: 2vh;
+
 }
 
 
