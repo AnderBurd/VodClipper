@@ -20,5 +20,5 @@ jobs:
           script: |
             cd /opt/VodClipper
             git pull origin main
-            docker-compose up -d --build
-            docker system prune -f # Cleans up that disk space
+            docker compose up -d --build --remove-orphans
+            docker system prune -f # Cleans up the disk space
