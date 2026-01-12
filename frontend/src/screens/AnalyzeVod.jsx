@@ -1,6 +1,7 @@
 import react, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AnalyzeVod.css'
+import logo from '../assets/vodclipperv1.png'
 
 //Use droplet ip
 const API_URL = import.meta.env.VITE_API_URL || 'https://vodclipper.me';
@@ -70,6 +71,7 @@ export default function AnalyzeVod(){
         <a href="mailto:contactvodclipper@gmail.com">contactvodclipper@gmail.com</a>
       </div>
       <div className="analyze-header">
+        <img src = {logo} alt="Logo"></img>
         <h1>VodClipper</h1>
         <p>Paste a Twitch VOD URL to find the best moments</p>
       </div>

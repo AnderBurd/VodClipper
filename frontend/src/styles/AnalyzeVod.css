@@ -7,13 +7,13 @@
   align-items: center;
   gap: 2rem;
   background: #18181b;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .analyze-header {
-  margin-top: 20rem;
+  margin-top: 6rem;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .analyze-header h1 {
@@ -163,4 +163,11 @@
 
 .email-contact a:hover {
   text-decoration: underline;
+}
+
+
+/*Logo*/
+.analyze-header img {
+  width: 200px;  
+  height: auto;  
 }
