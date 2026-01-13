@@ -16,6 +16,29 @@ const formatTime = (totalSeconds) => {
 
 //Hypechart component
 const HypeChart = ({ allData, spikes, onTimeSelect }) => {
+
+  const chartRef = React.useRef(null);
+
+  const handleChartClick = (e) => {
+    if (!chartRef.current) return;
+    
+    try {
+      const chart = chartRef.current.getEchartsInstance();
+      const pointInPixel = [e.nativeEvent.offsetX, e.nativeEvent.offsetY];
+      const pointInGrid = chart.convertFromPixel('grid', pointInPixel);
+      
+      console.log("Click detected", pointInPixel, pointInGrid);
+      
+      if (pointInGrid && pointInGrid[0] >= 0) {
+        onTimeSelect(Math.round(pointInGrid[0]));
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+
   const option = useMemo(() => ({
     textStyle: {
       fontFamily: "'vhs-gothic', sans-serif"
@@ -23,7 +46,7 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
     grid: {
       top: 10, //These are padding values
       right: 10,
-      bottom: 80,
+      bottom: 50,
       left: 10,
       containLabel: false
     },
@@ -41,6 +64,7 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
       axisLabel: { formatter: (v) => formatTime(v), interval: "auto"},
       splitLine: {show:false},
       boundaryGap: false,
+      triggerEvent: true
     },
     yAxis: { 
       type: "value", 
@@ -60,6 +84,8 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
         data: allData.map((d) => [d.window_start, d.message_count]),
         showSymbol: false, //Dont show dots for every datapoint..
         silent: false, //Allows the line to interact with mouse
+        areaStyle: { color: "rgba(145, 71, 255, 0.3)" },
+
       },
       {
         type: "scatter",
@@ -74,17 +100,11 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
   if (!allData.length) return <div>No chart data</div>;
 
   return (
-    <div className="chart-wrapper">
+    <div className="chart-wrapper" onClick={handleChartClick}>
       <ReactECharts
+        ref={chartRef}
         option={option}
         style={{ height: "280px", width: "100%" }}
-        onEvents={{
-          click: (e) => {
-            if (e.componentType === "xAxis") {
-              onTimeSelect(e.value);
-            }
-          },
-        }}
       />
     </div>
   );
