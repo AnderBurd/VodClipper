@@ -21,10 +21,10 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
       fontFamily: "'vhs-gothic', sans-serif"
     },
     grid: {
-      top: 5,
-      right: 5,
-      bottom: 10,
-      left: 5,
+      top: 10, //These are padding values
+      right: 10,
+      bottom: 80,
+      left: 10,
       containLabel: false
     },
     tooltip: {
