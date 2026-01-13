@@ -17,6 +17,16 @@ const formatTime = (totalSeconds) => {
 //Hypechart component
 const HypeChart = ({ allData, spikes, onTimeSelect }) => {
   const option = useMemo(() => ({
+    textStyle: {
+      fontFamily: "'vhs-gothic', sans-serif"
+    },
+    grid: {
+      top: 5,
+      right: 5,
+      bottom: 10,
+      left: 5,
+      containLabel: false
+    },
     tooltip: {
       trigger: "axis",
       formatter: (params) => {
@@ -38,7 +48,6 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
       axisLabel: { show: false }, // Next 3 lines just get rid of the y-axis
       axisLine: { show: false },
       axisTick: { show: false },
-      max: Math.max(...allData.map(d => d.message_count)) * 1.1,
     },
     dataZoom: [
       { type: "inside", filterMode: "none", show: false}, // Allow zooming
@@ -47,8 +56,7 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
       {
         type: "line",
         smooth: true,
-        areaStyle: { color: "#9147ff44" },
-        lineStyle: { color: "#9147ff", width: 1.3 },
+        lineStyle: { color: "#9147ff", width: 1 },
         data: allData.map((d) => [d.window_start, d.message_count]),
         showSymbol: false, //Dont show dots for every datapoint..
       },

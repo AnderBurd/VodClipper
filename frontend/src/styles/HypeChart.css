@@ -1,6 +1,8 @@
 .chart-wrapper {
-  width: 85%;
+  width: 100%;
+  max-width: 85%;
   background: #18181b;
   overflow: hidden;
-  height: 240px;
+  height: 280px;
+  margin-top: -2rem;
 }
