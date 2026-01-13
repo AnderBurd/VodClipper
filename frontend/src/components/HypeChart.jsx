@@ -59,6 +59,7 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
         lineStyle: { color: "#9147ff", width: 1 },
         data: allData.map((d) => [d.window_start, d.message_count]),
         showSymbol: false, //Dont show dots for every datapoint..
+        silent: false, //Allows the line to interact with mouse
       },
       {
         type: "scatter",
@@ -79,7 +80,9 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
         style={{ height: "280px", width: "100%" }}
         onEvents={{
           click: (e) => {
-            if (e && e.value) onTimeSelect(e.value[0]);
+            if (e.componentType === "xAxis") {
+              onTimeSelect(e.value);
+            }
           },
         }}
       />
