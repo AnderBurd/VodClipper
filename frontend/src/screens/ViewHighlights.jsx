@@ -56,6 +56,7 @@ export default function ViewHighlights(){
             <div className="highlights-header">
                 <h1>VOD Highlights</h1>
                 <p>Click on the chart to jump to high-activity moments</p>
+                <p className="zoom-hint">Scroll or pinch the graph to zoom</p>
             </div>
         {/*Twitch embed*/}
         <div className='Vid-container'>
