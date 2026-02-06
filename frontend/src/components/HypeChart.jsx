@@ -84,8 +84,6 @@ const HypeChart = ({ allData, spikes, onTimeSelect }) => {
         data: allData.map((d) => [d.window_start, d.message_count]),
         showSymbol: false, //Dont show dots for every datapoint..
         silent: false, //Allows the line to interact with mouse
-        areaStyle: { color: "rgba(145, 71, 255, 0.3)" },
-
       },
       {
         type: "scatter",
